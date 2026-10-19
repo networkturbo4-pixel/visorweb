@@ -19,9 +19,17 @@ let db;
 try {
   const { DatabaseSync } = require('node:sqlite');
   db = new DatabaseSync(dbPath);
-} catch (e) {
-  const Database = require('better-sqlite3');
-  db = new Database(dbPath);
+  console.log('[DB] Conectado usando SQLite nativo (node:sqlite)');
+} catch (e1) {
+  try {
+    const Database = require('better-sqlite3');
+    db = new Database(dbPath);
+    console.log('[DB] Conectado usando better-sqlite3 (Node 20/18 compatible)');
+  } catch (e2) {
+    const errText = `[DB ERROR CRÍTICO] No se pudo inicializar SQLite:\n- Intento 1 (node:sqlite): ${e1.message}\n- Intento 2 (better-sqlite3): ${e2.message}\nEjecuta "Run NPM Install" en cPanel para instalar better-sqlite3.`;
+    console.error(errText);
+    throw new Error(errText);
+  }
 }
 
 // Enable foreign keys

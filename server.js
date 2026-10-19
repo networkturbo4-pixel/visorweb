@@ -34,6 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve frontend static assets
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 app.use('/system-assets', express.static(systemUploadsDir));
 
 // Serve uploaded web project files for preview
