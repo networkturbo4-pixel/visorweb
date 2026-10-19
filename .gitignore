@@ -14,6 +14,7 @@ uploads/temp/*
 
 # System Logs & Cache
 *.log
+*.zip
 .DS_Store
 Thumbs.db
 .env
