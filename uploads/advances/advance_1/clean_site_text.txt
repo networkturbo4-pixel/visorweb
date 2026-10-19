@@ -1,0 +1,3 @@
+Notas del proyecto Maquinarias del Norte:
+- Arquitectura de navegación aprobada.
+- Versión v1.0 lista para revisión de cliente.

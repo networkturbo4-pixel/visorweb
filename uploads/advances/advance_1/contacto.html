@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Maquinarias del Norte</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">🚜 MAQUINARIAS <span>DEL NORTE</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="">Inicio</a></li>
+          <li><a href="nosotros.html" class="">Nosotros</a></li>
+          <li><a href="servicios.html" class="">Servicios</a></li>
+          <li><a href="maquinaria.html" class="">Maquinaria</a></li>
+          <li><a href="proyectos.html" class="">Proyectos</a></li>
+          <li><a href="contacto.html" class="btn btn-accent active">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    
+    <div class="container">
+      <div class="section-title">
+        <h2>Solicita una Cotización</h2>
+        <p>Nuestro equipo de ingenieros de soporte te responderá en menos de 2 horas.</p>
+      </div>
+      <div style="max-width: 600px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 12px; border: 1px solid var(--border);">
+        <form onsubmit="event.preventDefault(); alert('¡Cotización recibida con éxito! Te contactaremos pronto.');">
+          <div style="margin-bottom: 1rem;">
+            <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Nombre Completo / Empresa</label>
+            <input type="text" placeholder="Ej: Minera Andes S.A." required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Correo Electrónico</label>
+            <input type="email" placeholder="correo@empresa.com" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Tipo de Equipo requerido</label>
+            <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+              <option>Excavadora sobre orugas</option>
+              <option>Cargador Frontal</option>
+              <option>Grúa Móvil / Telescópica</option>
+              <option>Motoniveladora</option>
+              <option>Flota mixta completa</option>
+            </select>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display:block; margin-bottom: 0.5rem; font-weight:600;">Detalles del Proyecto y Ubicación</label>
+            <textarea rows="4" placeholder="Duración estimada, lugar de la obra, requerimientos especiales..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;"></textarea>
+          </div>
+          <button type="submit" class="btn btn-accent" style="width: 100%; padding: 1rem; font-size: 1rem;">Enviar Solicitud de Cotización</button>
+        </form>
+      </div>
+    </div>
+  
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Maquinarias del Norte</h4>
+        <p>Soluciones de ingeniería, alquiler y mantenimiento de equipo pesado para minería y construcción.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Enlaces Rápidos</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="maquinaria.html">Catálogo de Maquinaria</a></li>
+          <li><a href="servicios.html">Servicios y Soporte</a></li>
+          <li><a href="contacto.html">Solicitar Cotización</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto 24/7</h4>
+        <p>📞 (+51) 987 654 321</p>
+        <p>✉️ ventas@maquinariasdelnorte.com</p>
+        <p>📍 Parque Industrial Lote 14, Piura - Perú</p>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2026 Maquinarias del Norte S.A.C. Todos los derechos reservados.
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Persistent Database (Preserve client data across git pulls)
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+# Temporary Uploads
+uploads/temp/*
+!uploads/temp/.gitkeep
+
+# System Logs & Cache
+*.log
+.DS_Store
+Thumbs.db
+.env
+.idea/
+.vscode/

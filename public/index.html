@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="docTitle">WebReview Pro | Portal de Avances & Brand Guidelines</title>
+  <link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563EB'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <!-- Dynamic Brand / System Logo -->
+      <div class="system-brand" id="systemBrandHeader">
+        <div class="brand-logo-slot" id="headerLogoSlot">
+          <svg class="svg-icon-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <div class="brand-text-group">
+          <span class="system-app-name" id="headerAppName">WebReview <span class="highlight">Pro</span></span>
+          <span class="system-sub-name" id="headerCompanyText">Portal de Avances & Brand Guidelines</span>
+        </div>
+      </div>
+
+      <!-- Project Selector (Admin Only) -->
+      <div class="project-selector-wrapper admin-only" title="Seleccionar proyecto activo">
+        <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <select id="projectSelect" class="form-select form-select-sm"></select>
+        <button id="btnNewProject" class="btn btn-xs btn-outline" title="Crear Nuevo Proyecto">
+          <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nuevo
+        </button>
+      </div>
+      <!-- Project Title Badge (Client Only) -->
+      <div class="client-project-badge client-only">
+        <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span id="clientProjectTitle" class="badge-title">Cargando...</span>
+      </div>
+    </div>
+
+    <!-- Main Navigation Tabs with Clean SVG Icons -->
+    <nav class="app-nav">
+      <button class="nav-tab active" data-tab="tab-preview">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+        Visor de Avances
+      </button>
+      <button class="nav-tab admin-only" data-tab="tab-upload">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
+        Subir Avance
+      </button>
+      <button class="nav-tab" data-tab="tab-brand">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+        Brand Guidelines
+      </button>
+      <button class="nav-tab admin-only" data-tab="tab-settings">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Ajustes del Sistema
+      </button>
+    </nav>
+
+    <!-- Header Right Actions -->
+    <div class="header-right">
+      <!-- Admin Action: Compartir Enlace Corto -->
+      <button id="btnShareModalOpen" class="btn btn-sm btn-outline admin-only" title="Compartir Proyecto (Enlace Corto)">
+        <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Compartir
+      </button>
+
+      <!-- Admin Action: Gestión de Usuarios -->
+      <button id="btnUsersModalOpen" class="btn btn-sm btn-outline admin-only" title="Gestión de Usuarios y Roles">
+        <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Usuarios
+      </button>
+
+      <!-- User Account Widget -->
+      <div id="authContainer" class="auth-container">
+        <button id="btnOpenLoginModal" class="btn btn-sm btn-outline">
+          <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Ingresar
+        </button>
+      </div>
+
+      <!-- Comentarios (Always visible, as requested in Image 2) -->
+      <button id="btnToggleDrawer" class="btn btn-primary btn-drawer-toggle">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Comentarios
+        <span id="headerPendingBadge" class="badge-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-main">
+
+    <!-- ================= TAB 1: VISOR DE AVANCES ================= -->
+    <section id="tab-preview" class="tab-pane active">
+      <!-- Toolbar -->
+      <div class="preview-toolbar">
+        <div class="toolbar-group">
+          <!-- Hidden select for internal version tracking -->
+          <select id="advanceSelect" style="display:none;"></select>
+
+          <!-- Page Dropdown -->
+          <div class="select-field" title="Página activa del avance">
+            <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <select id="pageSelect" class="form-select form-select-sm"></select>
+          </div>
+
+          <div class="toolbar-divider admin-only"></div>
+
+          <!-- Visualizer Domain Setting (Admin Only) -->
+          <div class="select-field admin-only domain-field" title="Dominio web para simular la barra de navegación">
+            <div class="domain-input-group">
+              <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <input type="text" id="projectDomainInput" class="form-control form-control-sm domain-input" placeholder="https://dominio.pe">
+              <button id="btnSaveDomain" class="btn btn-xs btn-outline btn-save-domain" type="button" title="Guardar Dominio">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Previous Website URL Setting (Admin Only) -->
+          <div class="select-field admin-only previous-url-field" title="URL de la Web Anterior / Actual para la Comparativa Dual">
+            <div class="domain-input-group">
+              <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <input type="text" id="projectPreviousUrlInput" class="form-control form-control-sm domain-input" placeholder="Web anterior (ej: https://antigua.com)">
+              <button id="btnSavePreviousUrl" class="btn btn-xs btn-outline btn-save-domain" type="button" title="Guardar Web Anterior">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar-group center-group">
+          <!-- Viewport Mode Buttons -->
+          <div class="view-mode-toggle" role="group" aria-label="Modo de visualización">
+            <button id="btnModeDesktop" class="toggle-btn" title="Vista PC">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+              <span>PC</span>
+            </button>
+            <button id="btnModeMobile" class="toggle-btn" title="Vista Móvil">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>
+              <span>Móvil</span>
+            </button>
+            <button id="btnModeDual" class="toggle-btn active" title="Vista Dual simultánea">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><line x1="12" x2="12" y1="3" y2="21"/></svg>
+              <span>Dual (PC + Móvil)</span>
+            </button>
+            <button id="btnModeCompare" class="toggle-btn" title="Comparativa Dual PC (Web Anterior vs Nueva Propuesta)">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="9" height="15" x="2" y="4" rx="1.5"/><rect width="9" height="15" x="13" y="4" rx="1.5"/></svg>
+              <span>Comparativa (Dual PC)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar-group right-group">
+          <!-- Desktop Resolution Selector -->
+          <div class="select-field" title="Ancho de simulación PC">
+            <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+            <select id="desktopResSelect" class="form-select form-select-sm">
+              <option value="1440">1440px (Desktop)</option>
+              <option value="1280" selected>1280px (Laptop)</option>
+              <option value="100%">100% Fluido</option>
+            </select>
+          </div>
+
+          <div class="toolbar-divider"></div>
+
+          <!-- Reload View -->
+          <button id="btnReloadPreviews" class="btn btn-icon btn-icon-sm" title="Recargar visualizaciones">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          </button>
+
+          <!-- External View -->
+          <button id="btnOpenExternal" class="btn btn-icon btn-icon-sm" title="Abrir en pestaña independiente">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Floating PIN Mode Notification Banner -->
+      <div id="pinDropBanner" class="pin-drop-banner hidden">
+        <div class="pin-drop-content">
+          <span class="pin-drop-pulse"></span>
+          <span><strong>Modo PIN Activo:</strong> Haz clic en cualquier elemento de la página web para fijar tu comentario.</span>
+        </div>
+        <button type="button" id="btnCancelPinDrop" class="btn btn-xs btn-outline">Cancelar</button>
+      </div>
+
+      <!-- Preview Workstage -->
+      <div id="previewWorkstage" class="preview-workstage mode-dual">
+
+        <!-- PREVIOUS PC VIEWPORT (FOR COMPARISON MODE) -->
+        <div id="previousDesktopContainer" class="viewport-box desktop-box compare-box" style="display: none;">
+          <div class="viewport-header">
+            <div class="window-controls">
+              <span class="win-btn win-red"></span>
+              <span class="win-btn win-yellow"></span>
+              <span class="win-btn win-green"></span>
+            </div>
+            <div class="browser-address-bar">
+              <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <span id="previousUrlDisplay" class="address-text">https://...</span>
+              <span class="viewport-tag tag-previous">Web Anterior (Actual)</span>
+            </div>
+            <div class="viewport-actions">
+              <button id="btnOpenPreviousExternal" class="action-btn" title="Abrir sitio web anterior en pestaña independiente">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="viewport-body" id="previousWrapper">
+            <iframe id="iframePrevious" class="preview-iframe" title="Web Anterior del Cliente"></iframe>
+            <div id="previousEmptyNotice" class="previous-empty-placeholder hidden">
+              <div class="empty-icon-wrap">
+                <svg class="svg-icon-lg text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <h4>Sin Web Anterior Configurada</h4>
+              <p>El administrador puede definir la URL del sitio web anterior en los ajustes del proyecto para comparar ambas versiones.</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PC VIEWPORT (NEW PROPOSAL) -->
+        <div id="desktopContainer" class="viewport-box desktop-box">
+          <div class="viewport-header">
+            <div class="window-controls">
+              <span class="win-btn win-red"></span>
+              <span class="win-btn win-yellow"></span>
+              <span class="win-btn win-green"></span>
+            </div>
+            <div class="browser-address-bar">
+              <svg class="svg-icon-xs text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span id="desktopUrlDisplay" class="address-text">preview://index.html</span>
+              <span id="desktopTagDisplay" class="viewport-tag">PC View (Desktop)</span>
+            </div>
+            <div class="viewport-actions">
+              <button class="action-btn" onclick="zoomViewport('desktop', 0.9)" title="Reducir zoom">-</button>
+              <span id="desktopZoomDisplay" class="zoom-label">100%</span>
+              <button class="action-btn" onclick="zoomViewport('desktop', 1.1)" title="Aumentar zoom">+</button>
+            </div>
+          </div>
+          <div class="viewport-body" id="desktopWrapper">
+            <div id="desktopPinOverlay" class="pin-overlay" data-viewport="desktop"></div>
+            <iframe id="iframeDesktop" class="preview-iframe" title="Vista Desktop"></iframe>
+          </div>
+        </div>
+
+        <!-- MOBILE VIEWPORT -->
+        <div id="mobileContainer" class="viewport-box mobile-box">
+          <div class="smartphone-bezel">
+            <!-- Dynamic Island / Speaker -->
+            <div class="phone-dynamic-island">
+              <span class="camera-sensor"></span>
+            </div>
+            <!-- Status Bar with Clean SVGs -->
+            <div class="phone-screen-header">
+              <span class="phone-time" id="phoneClock">09:41</span>
+              <span class="phone-url" id="mobileUrlDisplay">index.html</span>
+              <div class="phone-status-icons">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="10" x="2" y="7" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+              </div>
+            </div>
+            <div class="viewport-body" id="mobileWrapper">
+              <div id="mobilePinOverlay" class="pin-overlay" data-viewport="mobile"></div>
+              <iframe id="iframeMobile" class="preview-iframe" title="Vista Móvil"></iframe>
+            </div>
+            <div class="phone-home-indicator">
+              <span class="home-bar"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: SUBIR AVANCE ================= -->
+    <section id="tab-upload" class="tab-pane">
+      <div class="content-container">
+        <div class="section-card">
+          <div class="card-header-styled">
+            <div class="card-icon-big">
+              <svg class="svg-icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <div>
+              <h2>Subir Nuevo Avance Web</h2>
+              <p>Puedes subir la carpeta completa de tu proyecto (con tus carpetas <code>assets/</code>, <code>index.html</code>, <code>maquinaria.html</code>, etc.) o un archivo comprimido <code>.zip</code>.</p>
+            </div>
+          </div>
+
+          <!-- Method Selector -->
+          <div class="upload-type-tabs">
+            <button id="btnMethodFolder" class="upload-tab-btn active" type="button">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+              Subir Carpeta Completa (Recomendado)
+            </button>
+            <button id="btnMethodZip" class="upload-tab-btn" type="button">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="2"/><path d="M10 2v20"/><path d="M14 6h-4"/><path d="M14 10h-4"/><path d="M14 14h-4"/><path d="M14 18h-4"/></svg>
+              Subir Archivo .ZIP
+            </button>
+          </div>
+
+          <!-- Folder Upload Form -->
+          <form id="formUploadFolder" class="upload-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="folderVersionName">Nombre del Avance / Versión *</label>
+                <input type="text" id="folderVersionName" class="form-control" placeholder="Ej: Entrega Fase 2 - Correcciones y Maquinaria" required>
+              </div>
+              <div class="form-group">
+                <label for="folderVersionNotes">Notas o Descripción de Cambios</label>
+                <input type="text" id="folderVersionNotes" class="form-control" placeholder="Ej: Se añadieron secciones de contacto y catálogo responsive">
+              </div>
+            </div>
+
+            <!-- Folder Dropzone -->
+            <div class="dropzone" id="folderDropzone">
+              <div class="dropzone-content">
+                <div class="dropzone-icon">
+                  <svg class="svg-icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                </div>
+                <h3>Selecciona la Carpeta del Sitio Web</h3>
+                <p>El sistema cargará automáticamente todos los archivos HTML y recursos de la carpeta <code>assets/</code> preservando las rutas.</p>
+                <input type="file" id="folderInput" webkitdirectory directory multiple class="hidden-file-input">
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('folderInput').click()">
+                  Elegir Carpeta del Proyecto
+                </button>
+                <div id="folderSelectedCount" class="selected-summary hidden"></div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="btnSubmitFolder" class="btn btn-success btn-lg" disabled>
+                Procesar y Publicar Avance
+              </button>
+            </div>
+          </form>
+
+          <!-- Zip Upload Form -->
+          <form id="formUploadZip" class="upload-form hidden">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="zipVersionName">Nombre del Avance / Versión *</label>
+                <input type="text" id="zipVersionName" class="form-control" placeholder="Ej: Entrega Fase 2 - Archivos ZIP" required>
+              </div>
+              <div class="form-group">
+                <label for="zipVersionNotes">Notas de la Entrega</label>
+                <input type="text" id="zipVersionNotes" class="form-control" placeholder="Ej: Archivos comprimidos de la web">
+              </div>
+            </div>
+
+            <div class="dropzone" id="zipDropzone">
+              <div class="dropzone-content">
+                <div class="dropzone-icon">
+                  <svg class="svg-icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect width="20" height="20" x="2" y="2" rx="2"/><path d="M10 2v20"/><path d="M14 6h-4"/><path d="M14 10h-4"/><path d="M14 14h-4"/><path d="M14 18h-4"/></svg>
+                </div>
+                <h3>Arrastra tu archivo .ZIP aquí</h3>
+                <p>O haz clic para seleccionar el paquete comprimido de tu sitio web.</p>
+                <input type="file" id="zipInput" accept=".zip" class="hidden-file-input">
+                <button type="button" class="btn btn-primary" onclick="document.getElementById('zipInput').click()">
+                  Seleccionar archivo .ZIP
+                </button>
+                <div id="zipSelectedCount" class="selected-summary hidden"></div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="btnSubmitZip" class="btn btn-success btn-lg" disabled>
+                Descomprimir y Publicar Avance
+              </button>
+            </div>
+          </form>
+
+          <!-- Progress -->
+          <div id="uploadProgress" class="upload-progress-card hidden">
+            <div class="spinner"></div>
+            <div>
+              <h4 id="progressStatus">Subiendo archivos...</h4>
+              <p id="progressDetail">Por favor espera mientras el servidor estructura las páginas y recursos.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: BRAND GUIDELINES ================= -->
+    <section id="tab-brand" class="tab-pane">
+      <div class="content-container">
+        
+        <!-- Hero Summary -->
+        <div class="brand-hero-card">
+          <div class="brand-hero-info">
+            <span class="brand-badge">Brand Guidelines de la Propuesta</span>
+            <h1 id="brandTitle">Guía de Marca</h1>
+            <p id="brandTagline" class="brand-tagline">Identidad visual oficial de la propuesta</p>
+          </div>
+          <div class="brand-hero-actions">
+            <button id="btnEditBrandGuide" class="btn btn-primary admin-only">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+              Editar Guía de Marca
+            </button>
+          </div>
+        </div>
+
+        <!-- Palette -->
+        <div class="brand-section">
+          <div class="brand-section-header">
+            <h3>Paleta Cromática Oficial</h3>
+            <p>Haz clic en cualquier tarjeta de color para copiar su código HEX al portapapeles.</p>
+          </div>
+          <div id="brandColorsGrid" class="colors-grid"></div>
+        </div>
+
+        <!-- Typography -->
+        <div class="brand-section">
+          <div class="brand-section-header">
+            <h3>Tipografías Corporativas</h3>
+            <p>Jerarquía visual y fuentes tipográficas aprobadas para la interfaz.</p>
+          </div>
+          <div class="typography-layout">
+            <div class="font-spec-card">
+              <span class="font-badge">Fuente Primaria</span>
+              <h4 id="fontPrimaryName">Inter</h4>
+              <p>Aplicada en encabezados principales, menús y elementos de interfaz.</p>
+              <div class="font-sample-big" id="fontPrimarySample">
+                Aa Bb Cc Dd Ee Ff Gg Hh 0123456789
+              </div>
+            </div>
+            <div class="font-spec-card">
+              <span class="font-badge">Fuente Secundaria</span>
+              <h4 id="fontSecondaryName">Montserrat</h4>
+              <p>Aplicada en destacados, badges numéricos, botones y llamados a la acción.</p>
+              <div class="font-sample-big" id="fontSecondarySample">
+                Aa Bb Cc Dd Ee Ff Gg Hh 0123456789
+              </div>
+            </div>
+          </div>
+
+          <div class="type-scale-table-wrap">
+            <table class="type-scale-table">
+              <thead>
+                <tr>
+                  <th>Jerarquía</th>
+                  <th>Tamaño</th>
+                  <th>Peso</th>
+                  <th>Muestra Visual</th>
+                </tr>
+              </thead>
+              <tbody id="typeScaleBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Do's and Don'ts -->
+        <div class="brand-section">
+          <div class="brand-section-header">
+            <h3>Lineamientos de Identidad Gráfica</h3>
+            <p>Buenas prácticas y restricciones para mantener la consistencia del diseño.</p>
+          </div>
+          <div class="rules-grid">
+            <div class="rule-box rule-do">
+              <div class="rule-header">
+                <svg class="svg-icon-sm text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <h4>Buenas Prácticas (Do's)</h4>
+              </div>
+              <ul id="brandDosList" class="rule-list"></ul>
+            </div>
+            <div class="rule-box rule-dont">
+              <div class="rule-header">
+                <svg class="svg-icon-sm text-danger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <h4>Restricciones (Don'ts)</h4>
+              </div>
+              <ul id="brandDontsList" class="rule-list"></ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+    <!-- ================= TAB 5: AJUSTES DEL SISTEMA (LOGO & FAVICON) ================= -->
+    <section id="tab-settings" class="tab-pane">
+      <div class="content-container">
+        <div class="section-card">
+          <div class="card-header-styled">
+            <div class="card-icon-big">
+              <svg class="svg-icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <div>
+              <h2>Personalización de Marca del Sistema</h2>
+              <p>Define el Logo oficial, el Favicon de la pestaña del navegador y la identidad global de la aplicación. Todo se almacena de forma persistente en la base de datos SQL.</p>
+            </div>
+          </div>
+
+          <form id="formSystemSettings" class="settings-form">
+            <!-- App Name & Subtitle -->
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="settingAppName">Nombre del Sistema / Plataforma</label>
+                <input type="text" id="settingAppName" class="form-control" placeholder="Ej: WebReview Pro">
+              </div>
+              <div class="form-group">
+                <label for="settingCompanyText">Subtítulo / Empresa Consultora</label>
+                <input type="text" id="settingCompanyText" class="form-control" placeholder="Ej: Portal de Avances & Brand Guidelines">
+              </div>
+            </div>
+
+            <!-- Logo Section -->
+            <div class="settings-asset-card">
+              <div class="asset-meta">
+                <h3>Logo del Sistema</h3>
+                <p>Aparece en la cabecera superior izquierda de toda la aplicación. Puedes subir un archivo (PNG, SVG, JPG, WebP) o especificar una URL.</p>
+              </div>
+
+              <div class="asset-preview-row">
+                <!-- Preview Dark -->
+                <div class="preview-box preview-dark">
+                  <span class="preview-tag">Fondo Oscuro</span>
+                  <div id="logoPreviewDark" class="logo-preview-inner">
+                    <!-- Dynamic logo preview -->
+                  </div>
+                </div>
+
+                <!-- Preview Light -->
+                <div class="preview-box preview-light">
+                  <span class="preview-tag">Fondo Claro</span>
+                  <div id="logoPreviewLight" class="logo-preview-inner">
+                    <!-- Dynamic logo preview -->
+                  </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="asset-controls">
+                  <div class="form-group">
+                    <label for="settingLogoUrl">URL de la imagen del Logo</label>
+                    <input type="text" id="settingLogoUrl" class="form-control" placeholder="/system-assets/logo.png o https://...">
+                  </div>
+
+                  <div class="upload-btn-wrap">
+                    <input type="file" id="fileLogoUpload" accept="image/*" class="hidden-file-input">
+                    <button type="button" class="btn btn-outline" onclick="document.getElementById('fileLogoUpload').click()">
+                      <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                      Subir archivo de Logo
+                    </button>
+                    <button type="button" class="btn btn-xs btn-ghost" id="btnResetDefaultLogo">
+                      Restaurar Logo Predeterminado
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Favicon Section -->
+            <div class="settings-asset-card">
+              <div class="asset-meta">
+                <h3>Favicon del Sistema</h3>
+                <p>El ícono que visualiza el usuario en la pestaña del navegador web. Puedes subir un archivo (.ico, .png, .svg) o ingresar su enlace.</p>
+              </div>
+
+              <div class="asset-preview-row">
+                <!-- Browser Tab Simulation -->
+                <div class="browser-tab-simulation">
+                  <div class="tab-chip">
+                    <img id="faviconPreviewImg" class="tab-favicon-icon" src="" alt="Favicon">
+                    <span id="tabSimulationTitle" class="tab-text">WebReview Pro | Portal</span>
+                    <span class="tab-close-icon">×</span>
+                  </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="asset-controls">
+                  <div class="form-group">
+                    <label for="settingFaviconUrl">URL del Favicon</label>
+                    <input type="text" id="settingFaviconUrl" class="form-control" placeholder="/system-assets/favicon.png o https://...">
+                  </div>
+
+                  <div class="upload-btn-wrap">
+                    <input type="file" id="fileFaviconUpload" accept="image/*,.ico" class="hidden-file-input">
+                    <button type="button" class="btn btn-outline" onclick="document.getElementById('fileFaviconUpload').click()">
+                      <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                      Subir archivo de Favicon
+                    </button>
+                    <button type="button" class="btn btn-xs btn-ghost" id="btnResetDefaultFavicon">
+                      Restaurar Favicon Predeterminado
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 2rem;">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Guardar Ajustes en Base de Datos SQL
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= SLIDE-OUT COMMENTS DRAWER ================= -->
+  <aside id="commentsDrawer" class="comments-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <h3>Observaciones y Comentarios</h3>
+      </div>
+      <button id="btnCloseDrawer" class="btn-close" aria-label="Cerrar panel">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="drawer-filters">
+      <button class="filter-chip active" data-filter="all">Todos (<span id="countAllComments">0</span>)</button>
+      <button class="filter-chip" data-filter="pending">Pendientes (<span id="countPendingComments">0</span>)</button>
+      <button class="filter-chip" data-filter="resolved">Resueltos (<span id="countResolvedComments">0</span>)</button>
+    </div>
+
+    <!-- Unobtrusive Pin Display Toggle & Drop Pin Action in A SINGLE LINE -->
+    <div class="drawer-pin-bar">
+      <div class="drawer-pin-left">
+        <label class="drawer-switch-row" for="chkShowPins">
+          <svg class="svg-icon-xs text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span class="pin-toggle-text">Marcadores PIN</span>
+          <span class="switch-toggle" title="Activar u ocultar marcadores PIN">
+            <input type="checkbox" id="chkShowPins" switch checked>
+            <span class="switch-slider"></span>
+          </span>
+        </label>
+      </div>
+
+      <button type="button" id="btnStartPinDrop" class="btn-drop-pin-single" title="Fijar un nuevo comentario con PIN en la pantalla">
+        <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Fijar PIN</span>
+      </button>
+    </div>
+
+    <!-- Comments List -->
+    <div id="commentsList" class="drawer-body"></div>
+
+    <!-- Modern App Composer Footer with Floating Card & Integrated Action Bar -->
+    <div class="drawer-footer">
+      <div class="comment-composer-card">
+        <form id="formQuickComment" class="composer-form">
+          <div class="composer-header-row">
+            <span class="composer-prompt-label">
+              <svg class="svg-icon-xs text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Nueva Observación
+            </span>
+            <div class="composer-category-wrapper">
+              <select id="quickCategory" class="composer-category-pill" title="Seleccionar categoría">
+                <option value="Diseño">Diseño y Estilos</option>
+                <option value="Contenido">Texto y Contenido</option>
+                <option value="Funcionalidad">Funcionalidad</option>
+                <option value="Bug">Ajuste / Bug</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+          </div>
+
+          <textarea id="quickContent" class="composer-textarea" rows="3" placeholder="Escribe aquí tu observación o sugerencia..." required></textarea>
+
+          <div class="composer-action-bar">
+            <!-- Text Formatting Toolbar -->
+            <div class="composer-toolbar-inline" role="toolbar" aria-label="Formato de texto">
+              <button type="button" class="btn-fmt" data-fmt="bold" data-target="quickContent" title="Negrita (**texto**)">
+                <strong>B</strong>
+              </button>
+              <button type="button" class="btn-fmt" data-fmt="italic" data-target="quickContent" title="Cursiva (*texto*)">
+                <em>I</em>
+              </button>
+              <button type="button" class="btn-fmt" data-fmt="underline" data-target="quickContent" title="Subrayado (<u>texto</u>)">
+                <u>U</u>
+              </button>
+              <div class="fmt-divider"></div>
+              <button type="button" class="btn-fmt btn-fmt-code" data-fmt="code" data-target="quickContent" title="Código (`código`)">
+                &lt;/&gt;
+              </button>
+              <button type="button" class="btn-fmt" data-fmt="list" data-target="quickContent" title="Viñeta (• item)">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              </button>
+              <button type="button" class="btn-fmt" data-fmt="quote" data-target="quickContent" title="Cita (> cita)">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/></svg>
+              </button>
+            </div>
+
+            <!-- Right Actions: Pin Shortcut & Send Button -->
+            <div class="composer-submit-group">
+              <button type="button" id="btnComposerAddPin" class="btn-composer-pin-pill" title="Fijar coordenada con PIN en pantalla">
+                <svg class="svg-icon-xs text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Fijar PIN</span>
+              </button>
+              <button type="submit" class="btn-composer-send" title="Publicar observación">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span>Publicar</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= FLOATING PIN POPOVER MODAL ================= -->
+  <dialog id="pinCommentModal" class="modal-dialog">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" style="background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.35); color: #fbbf24;">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <h3>Fijar Comentario en Pantalla</h3>
+            <p class="modal-subtitle" id="pinTargetSubtitle">Observación anclada a la coordenada visual</p>
+          </div>
+        </div>
+        <button id="btnClosePinModal" class="btn-close" type="button">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="formPinComment" class="modal-form">
+        <input type="hidden" id="pinPosX">
+        <input type="hidden" id="pinPosY">
+        <input type="hidden" id="pinViewport">
+
+        <div class="form-group">
+          <label for="pinCategory">Categoría del Comentario</label>
+          <select id="pinCategory" class="form-select">
+            <option value="Diseño">Diseño y Estilos</option>
+            <option value="Contenido">Texto y Contenido</option>
+            <option value="Funcionalidad">Funcionalidad y Enlaces</option>
+            <option value="Bug">Error / Ajuste Visual</option>
+            <option value="Aprobado">Aprobado / Excelente</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pinContent">Observación o cambio solicitado *</label>
+          
+          <!-- Text Formatting Toolbar for Pin Modal -->
+          <div class="composer-toolbar" role="toolbar" aria-label="Formato de texto">
+            <button type="button" class="btn-fmt" data-fmt="bold" data-target="pinContent" title="Negrita (**texto**)">
+              <strong>B</strong>
+            </button>
+            <button type="button" class="btn-fmt" data-fmt="italic" data-target="pinContent" title="Cursiva (*texto*)">
+              <em>I</em>
+            </button>
+            <button type="button" class="btn-fmt" data-fmt="underline" data-target="pinContent" title="Subrayado (<u>texto</u>)">
+              <u>U</u>
+            </button>
+            <div class="fmt-divider"></div>
+            <button type="button" class="btn-fmt" data-fmt="code" data-target="pinContent" title="Código (`código`)">
+              <code>&lt;/&gt;</code>
+            </button>
+            <button type="button" class="btn-fmt" data-fmt="list" data-target="pinContent" title="Viñeta (• item)">
+              <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+            <button type="button" class="btn-fmt" data-fmt="quote" data-target="pinContent" title="Cita (> cita)">
+              <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/></svg>
+            </button>
+          </div>
+
+          <textarea id="pinContent" class="form-control" rows="3" placeholder="Describe claramente el cambio o comentario para este elemento..." required></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="btnCancelPin">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+            Guardar PIN
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- ================= EDIT BRAND GUIDE MODAL ================= -->
+  <dialog id="editBrandModal" class="modal-dialog modal-dialog-lg">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <svg class="svg-icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+          <h3>Editar Guía de Marca del Proyecto</h3>
+        </div>
+        <button id="btnCloseBrandModal" class="btn-close" type="button">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="formEditBrand" class="modal-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="editBrandName">Nombre de la Marca</label>
+            <input type="text" id="editBrandName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="editBrandTagline">Eslogan / Subtítulo</label>
+            <input type="text" id="editBrandTagline" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="editBrandDesc">Descripción o Tono de Voz</label>
+          <textarea id="editBrandDesc" class="form-control" rows="2"></textarea>
+        </div>
+
+        <h4 style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-secondary);">Paleta de Colores</h4>
+        <div class="colors-editor-row">
+          <div class="color-picker-item">
+            <label>Primario</label>
+            <div class="picker-input-group">
+              <input type="color" id="editColorPrimary" class="color-swatch-input">
+              <input type="text" id="editColorPrimaryHex" class="form-control form-control-sm" style="width: 85px;">
+            </div>
+          </div>
+          <div class="color-picker-item">
+            <label>Secundario</label>
+            <div class="picker-input-group">
+              <input type="color" id="editColorSecondary" class="color-swatch-input">
+              <input type="text" id="editColorSecondaryHex" class="form-control form-control-sm" style="width: 85px;">
+            </div>
+          </div>
+          <div class="color-picker-item">
+            <label>Acento</label>
+            <div class="picker-input-group">
+              <input type="color" id="editColorAccent" class="color-swatch-input">
+              <input type="text" id="editColorAccentHex" class="form-control form-control-sm" style="width: 85px;">
+            </div>
+          </div>
+          <div class="color-picker-item">
+            <label>Fondo</label>
+            <div class="picker-input-group">
+              <input type="color" id="editColorBg" class="color-swatch-input">
+              <input type="text" id="editColorBgHex" class="form-control form-control-sm" style="width: 85px;">
+            </div>
+          </div>
+          <div class="color-picker-item">
+            <label>Texto</label>
+            <div class="picker-input-group">
+              <input type="color" id="editColorText" class="color-swatch-input">
+              <input type="text" id="editColorTextHex" class="form-control form-control-sm" style="width: 85px;">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label for="editFontPrimary">Fuente Primaria</label>
+            <input type="text" id="editFontPrimary" class="form-control" placeholder="Ej: Inter, sans-serif">
+          </div>
+          <div class="form-group">
+            <label for="editFontSecondary">Fuente Secundaria</label>
+            <input type="text" id="editFontSecondary" class="form-control" placeholder="Ej: Montserrat, sans-serif">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Lineamientos Do's (Una regla por línea)</label>
+          <textarea id="editDosText" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Lineamientos Don'ts (Una regla por línea)</label>
+          <textarea id="editDontsText" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-light" id="btnCancelBrandEdit">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios en SQL</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- ================= NEW PROJECT MODAL ================= -->
+  <dialog id="newProjectModal" class="modal-dialog">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <svg class="svg-icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <h3>Crear Nuevo Proyecto</h3>
+        </div>
+        <button id="btnCloseProjectModal" class="btn-close" type="button">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="formNewProject" class="modal-form">
+        <div class="form-group">
+          <label for="newProjectName">Nombre del Proyecto *</label>
+          <input type="text" id="newProjectName" class="form-control" placeholder="Ej: Rediseño Web Corporativo 2026" required>
+        </div>
+        <div class="form-group">
+          <label for="newProjectClient">Nombre del Cliente / Empresa</label>
+          <input type="text" id="newProjectClient" class="form-control" placeholder="Ej: Aceros Industriales S.A.">
+        </div>
+        <div class="form-group">
+          <label for="newProjectDesc">Descripción Breve</label>
+          <textarea id="newProjectDesc" class="form-control" rows="2" placeholder="Objetivos y alcance del proyecto..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="newProjectPreviousUrl">URL Web Anterior / Actual (Para Comparativa Dual)</label>
+          <input type="url" id="newProjectPreviousUrl" class="form-control" placeholder="https://miwebantigua.com">
+          <small style="color:var(--text-muted); font-size:0.75rem; display:block; margin-top:0.25rem;">Opcional: Si se define, el cliente podrá comparar su página web anterior contra la nueva propuesta moderna en Dual PC.</small>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-light" id="btnCancelNewProject">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Crear Proyecto</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- ================= LOGIN MODAL ================= -->
+  <dialog id="loginModal" class="modal-dialog">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          </div>
+          <div>
+            <h3>Iniciar Sesión</h3>
+            <p class="modal-subtitle">Ingresa tus credenciales para acceder al portal</p>
+          </div>
+        </div>
+        <button id="btnCloseLoginModal" class="btn-close" type="button" aria-label="Cerrar modal">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="formLogin" class="modal-form">
+        <div class="form-group">
+          <label for="loginUsername">Usuario o Correo *</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" id="loginUsername" class="form-control" placeholder="admin o tu@correo.com" required autocomplete="username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Contraseña *</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="btn-toggle-password" id="btnToggleLoginPassword" title="Mostrar u ocultar contraseña">
+              <svg id="eyeIconOpen" class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="eyeIconClosed" class="svg-icon-xs hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="loginErrorMsg" class="form-error hidden"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="btnCancelLogin">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            Entrar al Sistema
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- ================= SHARE SHORT LINK MODAL ================= -->
+  <dialog id="shareModal" class="modal-dialog">
+    <div class="modal-box modal-box-md">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <svg class="svg-icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          <h3>Compartir Proyecto (Vista Usuario / Cliente)</h3>
+        </div>
+        <button id="btnCloseShareModal" class="btn-close" type="button">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body-pad">
+        <p class="text-secondary" style="font-size:0.875rem; margin-bottom: 1.25rem;">
+          Genera un enlace corto exclusivo. Quienes ingresen con este enlace verán únicamente la <strong>Vista de Cliente</strong> (Visor PC/Móvil, Brand Guidelines y Comentarios), sin opciones de subida ni ajustes.
+        </p>
+
+        <!-- Generate new short link -->
+        <form id="formCreateShare" class="share-create-row">
+          <input type="text" id="shareTitleInput" class="form-control" placeholder="Etiqueta opcional (ej: Enlace para Directorio)" style="flex:1;">
+          <button type="submit" class="btn btn-primary" style="white-space: nowrap;">
+            <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Crear Enlace Corto
+          </button>
+        </form>
+
+        <!-- Latest created link box -->
+        <div id="latestShareBox" class="latest-share-box hidden">
+          <span class="share-box-label">Nuevo Enlace Generado:</span>
+          <div class="share-copy-row">
+            <input type="text" id="latestShareUrl" class="form-control" readonly>
+            <button id="btnCopyLatestShare" class="btn btn-outline" type="button">
+              <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <!-- Existing active shares -->
+        <div class="share-history-section">
+          <h4>Enlaces activos para este proyecto:</h4>
+          <div id="projectSharesList" class="shares-list-container">
+            <!-- Dynamic shares list -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ================= USERS MANAGEMENT MODAL ================= -->
+  <dialog id="usersModal" class="modal-dialog">
+    <div class="modal-box modal-box-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <svg class="svg-icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h3>Gestión de Usuarios y Accesos</h3>
+        </div>
+        <button id="btnCloseUsersModal" class="btn-close" type="button">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body-pad">
+        <!-- New User Form -->
+        <div class="subcard">
+          <h4>Crear Nuevo Usuario</h4>
+          <form id="formCreateUser" class="form-grid user-form-grid">
+            <div class="form-group">
+              <label for="newUserUsername">Usuario *</label>
+              <input type="text" id="newUserUsername" class="form-control form-control-sm" placeholder="ej: cliente_corporativo" required>
+            </div>
+            <div class="form-group">
+              <label for="newUserPassword">Contraseña *</label>
+              <input type="text" id="newUserPassword" class="form-control form-control-sm" placeholder="Contraseña segura" required>
+            </div>
+            <div class="form-group">
+              <label for="newUserName">Nombre Mostrado</label>
+              <input type="text" id="newUserName" class="form-control form-control-sm" placeholder="ej: Juan Pérez">
+            </div>
+            <div class="form-group">
+              <label for="newUserRole">Rol de Acceso *</label>
+              <select id="newUserRole" class="form-select form-select-sm" required>
+                <option value="client" selected>Cliente (Solo Vista & Comentarios)</option>
+                <option value="admin">Administrador (Control Total)</option>
+              </select>
+            </div>
+            <div class="user-btn-col">
+              <button type="submit" class="btn btn-sm btn-primary">
+                <svg class="svg-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Agregar Usuario
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Users Table -->
+        <div class="users-list-wrapper">
+          <h4>Usuarios Registrados en el Sistema:</h4>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Nombre</th>
+                  <th>Rol</th>
+                  <th>Fecha de Alta</th>
+                  <th style="text-align: right;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <!-- Dynamic user rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Image Snapshot Lightbox Modal -->
+  <dialog id="snapshotLightboxModal" class="modal-dialog">
+    <div class="modal-box modal-box-lg" style="max-width: 720px; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(16px); border: 1px solid rgba(245, 158, 11, 0.4);">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-icon-badge" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          </div>
+          <div>
+            <h3 id="lightboxTitle">Captura de Elemento Marcado</h3>
+            <p id="lightboxSubtitle" class="modal-subtitle" style="font-family: monospace; font-size: 0.78rem; color: #94a3b8;"></p>
+          </div>
+        </div>
+        <button id="btnCloseLightboxModal" class="btn-close" type="button" aria-label="Cerrar">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div style="padding: 1rem 1.5rem 1.5rem; text-align: center;">
+        <div style="background: #090d16; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); padding: 0.75rem; overflow: auto; max-height: 60vh; display: flex; justify-content: center; align-items: center;">
+          <img id="lightboxImg" src="" alt="Captura de elemento" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toast Notification Stack -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="js/html2canvas.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
