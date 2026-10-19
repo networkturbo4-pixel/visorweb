@@ -33,10 +33,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve frontend static assets
-app.use(express.static(path.join(__dirname, 'public')));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+const publicDir = path.join(__dirname, 'public');
+app.get('/__debug', (req, res) => {
+  const list = (d) => { try { return fs.readdirSync(d); } catch (e) { return 'ERR: ' + e.message; } };
+  res.json({
+    node: process.version,
+    dirname: __dirname,
+    publicDir,
+    publicExists: fs.existsSync(publicDir),
+    publicFiles: list(publicDir),
+    cssFiles: list(path.join(publicDir, 'css')),
+    jsFiles: list(path.join(publicDir, 'js')),
+    url: req.originalUrl,
+    baseUrl: req.baseUrl
+  });
 });
+app.use('/css', express.static(path.join(publicDir, 'css'), { dotfiles: 'allow' }));
+app.use('/js', express.static(path.join(publicDir, 'js'), { dotfiles: 'allow' }));
+app.use(express.static(publicDir, { dotfiles: 'allow' }));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(publicDir, 'index.html'));
+});
+
 app.use('/system-assets', express.static(systemUploadsDir));
 
 // Serve uploaded web project files for preview
