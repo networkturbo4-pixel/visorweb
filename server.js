@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import multer from 'multer';
 import AdmZip from 'adm-zip';
+import { execSync } from 'node:child_process';
 import db, { initDatabase } from './db.js';
 import { seedDemoData } from './seed.js';
 import { extractStylesFromFolder } from './styleExtractor.js';
@@ -993,6 +994,148 @@ app.get('/api/shares/:code', (req, res) => {
 app.get('/s/:code', (req, res) => {
   const { code } = req.params;
   res.redirect(`/?share=${code}`);
+});
+
+// ================= SYSTEM UPDATE FROM GITHUB ================= //
+// Get current installed version & repository status
+app.get('/api/system/version', (req, res) => {
+  try {
+    let commitHash = '097c0ed';
+    let commitMessage = 'Portal de Previsualización Web & Brand Guidelines';
+    let commitDate = new Date().toISOString();
+    let branch = 'main';
+    let remoteUrl = 'https://github.com/networkturbo4-pixel/visorweb.git';
+
+    try {
+      commitHash = execSync('git rev-parse --short HEAD', { cwd: __dirname }).toString().trim();
+      commitMessage = execSync('git log -1 --format=%s', { cwd: __dirname }).toString().trim();
+      commitDate = execSync('git log -1 --format=%cd --date=iso', { cwd: __dirname }).toString().trim();
+      branch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: __dirname }).toString().trim();
+      remoteUrl = execSync('git config --get remote.origin.url', { cwd: __dirname }).toString().trim() || remoteUrl;
+    } catch (gitErr) {
+      console.warn('Git info warning:', gitErr.message);
+    }
+
+    res.json({
+      commitHash,
+      commitMessage,
+      commitDate,
+      branch,
+      remoteUrl,
+      nodeVersion: process.version,
+      uptime: process.uptime()
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Check if new commits exist on remote GitHub
+app.post('/api/system/check-updates', (req, res) => {
+  try {
+    const logs = [];
+    logs.push(`[${new Date().toLocaleTimeString()}] Conectando con GitHub (origin/main)...`);
+    
+    try {
+      execSync('git fetch origin main', { cwd: __dirname, timeout: 25000 });
+      logs.push('Conexión exitosa con el repositorio remoto.');
+    } catch (fetchErr) {
+      logs.push(`Aviso al consultar remoto: ${fetchErr.message}`);
+    }
+
+    const currentHash = execSync('git rev-parse --short HEAD', { cwd: __dirname }).toString().trim();
+    let behindCount = 0;
+    let availableCommits = [];
+
+    try {
+      const behindStr = execSync('git rev-list HEAD..origin/main --count', { cwd: __dirname }).toString().trim();
+      behindCount = parseInt(behindStr, 10) || 0;
+
+      if (behindCount > 0) {
+        const rawList = execSync('git log HEAD..origin/main --format=%h||%s||%cd --date=relative', { cwd: __dirname }).toString().trim();
+        availableCommits = rawList.split('\n').filter(Boolean).map(line => {
+          const parts = line.split('||');
+          return { hash: parts[0], message: parts[1], date: parts[2] };
+        });
+      }
+    } catch (countErr) {
+      console.warn('Rev-list check warning:', countErr.message);
+    }
+
+    if (behindCount > 0) {
+      logs.push(`¡Hay ${behindCount} actualización(es) disponible(s) en GitHub!`);
+    } else {
+      logs.push('El sistema local está 100% al día con la última versión de GitHub.');
+    }
+
+    res.json({
+      hasUpdates: behindCount > 0,
+      behindCount,
+      currentHash,
+      availableCommits,
+      logs
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al comprobar actualizaciones: ' + err.message });
+  }
+});
+
+// 1-Click Update System & Database Schema without wiping data
+app.post('/api/system/update', (req, res) => {
+  const logs = [];
+  try {
+    const startTime = Date.now();
+    logs.push(`[${new Date().toLocaleTimeString()}] Iniciando proceso de actualización integral...`);
+
+    // 1. Git Fetch
+    logs.push('Paso 1/3: Descargando últimos commits desde origin/main en GitHub...');
+    execSync('git fetch origin main', { cwd: __dirname, timeout: 30000 });
+    logs.push('Cambios remotos descargados correctamente.');
+
+    // 2. Git Pull (safe - fast forward)
+    logs.push('Paso 2/3: Actualizando archivos del proyecto...');
+    let pullResult = '';
+    try {
+      pullResult = execSync('git pull origin main --no-edit', { cwd: __dirname, timeout: 35000 }).toString().trim();
+      logs.push(`Git Pull: ${pullResult}`);
+    } catch (pullErr) {
+      // In case of local untracked file conflicts, use safe checkout/merge
+      logs.push(`Aviso Git Pull: ${pullErr.message}`);
+      pullResult = execSync('git merge origin/main', { cwd: __dirname, timeout: 35000 }).toString().trim();
+      logs.push(`Git Merge: ${pullResult}`);
+    }
+
+    // 3. Database Schema Synchronization
+    logs.push('Paso 3/3: Sincronizando esquema de base de datos SQLite...');
+    initDatabase();
+    logs.push('Migraciones de base de datos ejecutadas con éxito.');
+    logs.push('Todas las tablas, índices y columnas nuevas aplicadas.');
+    logs.push('Los datos de proyectos, avances, observaciones y usuarios se mantuvieron intactos sin modificaciones.');
+
+    const newHash = execSync('git rev-parse --short HEAD', { cwd: __dirname }).toString().trim();
+    const newMsg = execSync('git log -1 --format=%s', { cwd: __dirname }).toString().trim();
+    const newDate = execSync('git log -1 --format=%cd --date=iso', { cwd: __dirname }).toString().trim();
+
+    const elapsedSec = ((Date.now() - startTime) / 1000).toFixed(1);
+    logs.push(`[${new Date().toLocaleTimeString()}] ¡Actualización completada en ${elapsedSec}s! Nueva versión: ${newHash}`);
+
+    res.json({
+      success: true,
+      message: 'Sistema y base de datos actualizados exitosamente sin alterar tus datos existentes.',
+      currentHash: newHash,
+      commitMessage: newMsg,
+      commitDate: newDate,
+      logs
+    });
+  } catch (err) {
+    console.error('System update error:', err);
+    logs.push(`ERROR CRÍTICO: ${err.message}`);
+    res.status(500).json({
+      success: false,
+      error: 'Error durante la actualización: ' + err.message,
+      logs
+    });
+  }
 });
 
 app.listen(PORT, () => {

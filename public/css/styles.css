@@ -3659,4 +3659,445 @@ body.pin-mode-active #mobileContainer {
   text-overflow: ellipsis;
 }
 
+/* ================= SETTINGS SUBNAV TABS ================= */
+.settings-subnav {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.85rem;
+}
+
+.settings-subtab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  padding: 0.55rem 1.1rem;
+  border-radius: 9px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.settings-subtab:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.settings-subtab.active {
+  background: rgba(37, 99, 235, 0.16);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #60a5fa;
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.15);
+}
+
+.update-pill-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: #f59e0b;
+  color: #0b1120;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  margin-left: 0.35rem;
+  animation: pulsePill 2s infinite ease-in-out;
+}
+
+@keyframes pulsePill {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.85; }
+}
+
+.settings-subpane.hidden {
+  display: none !important;
+}
+
+/* ================= GITHUB UPDATER STYLES ================= */
+.updater-header-banner {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.6rem;
+}
+
+.updater-header-info {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.updater-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.updater-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.3rem;
+}
+
+.updater-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 680px;
+}
+
+.updater-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.updater-status-chip.has-update {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+.pulse-indicator {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pulse-green {
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.pulse-amber {
+  background: #f59e0b;
+  box-shadow: 0 0 8px #f59e0b;
+}
+
+.sync-status-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #34d399;
+}
+
+.updater-status-chip.has-update .sync-status-label {
+  color: #fbbf24;
+}
+
+/* Updater Cards Grid */
+.updater-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.updater-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.updater-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.updater-card-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #94a3b8;
+}
+
+.updater-card-val {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.updater-card-sub {
+  font-size: 0.72rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.repo-link-text {
+  color: #60a5fa;
+}
+
+.branch-val {
+  color: #38bdf8;
+  font-family: var(--font-code, monospace);
+}
+
+.commit-pill {
+  font-family: var(--font-code, monospace);
+  font-size: 0.75rem;
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.tag-branch, .tag-env {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.btn-external-link {
+  color: #94a3b8;
+  transition: color 0.15s;
+}
+
+.btn-external-link:hover {
+  color: #ffffff;
+}
+
+/* Actions Bar */
+.updater-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.btn-update-hero {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #059669 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+  padding: 0.75rem 1.6rem;
+  font-size: 0.92rem;
+  transition: all 0.22s ease;
+}
+
+.btn-update-hero:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(5, 150, 105, 0.45);
+  filter: brightness(1.1);
+}
+
+.btn-update-hero:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Pending Commits Notification */
+.pending-commits-box {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.pending-commits-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.pending-icon-badge {
+  color: #fbbf24;
+  margin-top: 0.1rem;
+}
+
+.pending-commits-header h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.98rem;
+  color: #fef08a;
+}
+
+.pending-commits-header p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+
+.pending-commits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.commit-row-item {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.commit-row-msg {
+  font-size: 0.82rem;
+  color: #f1f5f9;
+  font-weight: 500;
+}
+
+.commit-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.74rem;
+  color: #94a3b8;
+}
+
+/* Terminal Console Box */
+.update-console-card {
+  background: #060b13;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1.6rem;
+}
+
+.console-header {
+  background: rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.6rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.console-title {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-code, monospace);
+}
+
+.console-status-pill {
+  font-family: var(--font-code, monospace);
+  font-size: 0.68rem;
+  padding: 0.12rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+}
+
+.console-status-pill.running {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+.console-status-pill.success {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.console-status-pill.error {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.console-body {
+  padding: 1rem 1.25rem;
+  font-family: var(--font-code, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: #a5f3fc;
+  min-height: 140px;
+  max-height: 280px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Safety Guarantee Banner */
+.safety-banner {
+  background: rgba(30, 58, 138, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 10px;
+  padding: 1.1rem 1.35rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.safety-icon {
+  color: #60a5fa;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.safety-banner h5 {
+  margin: 0 0 0.25rem;
+  font-size: 0.88rem;
+  color: #93c5fd;
+  font-weight: 700;
+}
+
+.safety-banner p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.safety-banner code {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  color: #fde047;
+  font-family: var(--font-code, monospace);
+}
+
 

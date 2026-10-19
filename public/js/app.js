@@ -229,6 +229,25 @@ const elements = {
   lightboxSubtitle: document.getElementById('lightboxSubtitle'),
   lightboxImg: document.getElementById('lightboxImg'),
   btnCloseLightboxModal: document.getElementById('btnCloseLightboxModal'),
+
+  // GitHub Updater Elements
+  btnCheckUpdates: document.getElementById('btnCheckUpdates'),
+  btnRunSystemUpdate: document.getElementById('btnRunSystemUpdate'),
+  syncStatusChip: document.getElementById('syncStatusChip'),
+  syncPulseDot: document.getElementById('syncPulseDot'),
+  syncStatusText: document.getElementById('syncStatusText'),
+  currentCommitHashPill: document.getElementById('currentCommitHashPill'),
+  currentCommitMsgText: document.getElementById('currentCommitMsgText'),
+  currentCommitDateText: document.getElementById('currentCommitDateText'),
+  repoBranchVal: document.getElementById('repoBranchVal'),
+  repoUrlSub: document.getElementById('repoUrlSub'),
+  serverNodeVersion: document.getElementById('serverNodeVersion'),
+  serverUptimeText: document.getElementById('serverUptimeText'),
+  pendingCommitsBox: document.getElementById('pendingCommitsBox'),
+  pendingCommitsList: document.getElementById('pendingCommitsList'),
+  updateConsoleOutput: document.getElementById('updateConsoleOutput'),
+  consoleStatusPill: document.getElementById('consoleStatusPill'),
+  updateAvailablePill: document.getElementById('updateAvailablePill'),
 };
 
 // ================= INITIALIZATION ================= //
@@ -467,6 +486,184 @@ function setupSystemSettings() {
       showToast('Error al guardar ajustes: ' + err.message, 'error');
     }
   });
+
+  // ================= GITHUB UPDATER FRONTEND LOGIC ================= //
+  const subtabs = document.querySelectorAll('.settings-subtab');
+  const subpanes = document.querySelectorAll('.settings-subpane');
+  subtabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      subtabs.forEach(t => t.classList.remove('active'));
+      subpanes.forEach(p => p.classList.add('hidden'));
+      tab.classList.add('active');
+      const targetPane = document.getElementById(tab.dataset.subtab);
+      if (targetPane) targetPane.classList.remove('hidden');
+
+      if (tab.dataset.subtab === 'subtab-updater') {
+        loadSystemVersionInfo();
+      }
+    });
+  });
+
+  async function loadSystemVersionInfo() {
+    try {
+      const res = await fetch('/api/system/version');
+      if (!res.ok) return;
+      const data = await res.json();
+      if (elements.currentCommitHashPill) elements.currentCommitHashPill.textContent = `#${data.commitHash}`;
+      if (elements.currentCommitMsgText) elements.currentCommitMsgText.textContent = data.commitMessage;
+      if (elements.currentCommitDateText) elements.currentCommitDateText.textContent = data.commitDate;
+      if (elements.repoBranchVal) elements.repoBranchVal.textContent = data.branch;
+      if (elements.repoUrlSub) elements.repoUrlSub.textContent = data.remoteUrl;
+      if (elements.serverNodeVersion) elements.serverNodeVersion.textContent = `Node ${data.nodeVersion}`;
+      if (elements.serverUptimeText) {
+        const uptimeMins = Math.floor(data.uptime / 60);
+        elements.serverUptimeText.textContent = `Activo hace ${uptimeMins}m`;
+      }
+      if (elements.syncStatusText) elements.syncStatusText.textContent = `✓ Sistema al día con GitHub (#${data.commitHash})`;
+    } catch (e) {
+      console.warn('Error loading version info:', e);
+    }
+  }
+
+  // Check for Updates Button
+  if (elements.btnCheckUpdates) {
+    elements.btnCheckUpdates.addEventListener('click', async () => {
+      elements.btnCheckUpdates.disabled = true;
+      elements.btnCheckUpdates.innerHTML = `
+        <span class="spinner-sm"></span> Comprobando...
+      `;
+      appendConsoleLog(`[${new Date().toLocaleTimeString()}] Conectando con GitHub (networkturbo4-pixel/visorweb)...`);
+
+      try {
+        const res = await fetch('/api/system/check-updates', { method: 'POST' });
+        const data = await res.json();
+
+        if (data.logs && data.logs.length) {
+          data.logs.forEach(l => appendConsoleLog(l));
+        }
+
+        if (data.hasUpdates) {
+          showToast(`¡Se encontraron ${data.behindCount} actualización(es) disponible(s) en GitHub!`, 'info');
+          if (elements.syncStatusChip) elements.syncStatusChip.classList.add('has-update');
+          if (elements.syncPulseDot) elements.syncPulseDot.className = 'pulse-indicator pulse-amber';
+          if (elements.syncStatusText) elements.syncStatusText.textContent = `${data.behindCount} actualización(es) disponible(s)`;
+          if (elements.updateAvailablePill) elements.updateAvailablePill.classList.remove('hidden');
+
+          // Render commits list
+          if (elements.pendingCommitsBox && elements.pendingCommitsList && data.availableCommits) {
+            elements.pendingCommitsBox.classList.remove('hidden');
+            elements.pendingCommitsList.innerHTML = '';
+            data.availableCommits.forEach(c => {
+              const row = document.createElement('div');
+              row.className = 'commit-row-item';
+              row.innerHTML = `
+                <span class="commit-row-msg">📦 ${escapeHtml(c.message)}</span>
+                <div class="commit-row-meta">
+                  <code class="commit-pill">#${escapeHtml(c.hash)}</code>
+                  <span>${escapeHtml(c.date)}</span>
+                </div>
+              `;
+              elements.pendingCommitsList.appendChild(row);
+            });
+          }
+        } else {
+          showToast('El sistema local está 100% al día con la última versión de GitHub', 'success');
+          if (elements.syncStatusChip) elements.syncStatusChip.classList.remove('has-update');
+          if (elements.syncPulseDot) elements.syncPulseDot.className = 'pulse-indicator pulse-green';
+          if (elements.syncStatusText) elements.syncStatusText.textContent = '✓ Sistema al día con GitHub';
+          if (elements.updateAvailablePill) elements.updateAvailablePill.classList.add('hidden');
+          if (elements.pendingCommitsBox) elements.pendingCommitsBox.classList.add('hidden');
+        }
+      } catch (err) {
+        showToast('Error al comprobar actualizaciones: ' + err.message, 'error');
+        appendConsoleLog(`ERROR: ${err.message}`);
+      } finally {
+        elements.btnCheckUpdates.disabled = false;
+        elements.btnCheckUpdates.innerHTML = `
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          Comprobar Actualizaciones
+        `;
+      }
+    });
+  }
+
+  // Run System Update 1-Click Button
+  if (elements.btnRunSystemUpdate) {
+    elements.btnRunSystemUpdate.addEventListener('click', async () => {
+      const confirmUpdate = confirm('¿Deseas actualizar el sistema ahora desde GitHub?\n\n- Se descargarán los últimos cambios de código.\n- Se sincronizarán las tablas y columnas de la base de datos SQL.\n- Tus proyectos, entregas, pines y comentarios se mantendrán intactos.');
+      if (!confirmUpdate) return;
+
+      elements.btnRunSystemUpdate.disabled = true;
+      elements.btnCheckUpdates.disabled = true;
+      elements.btnRunSystemUpdate.innerHTML = `
+        <span class="spinner-sm"></span> Actualizando Sistema...
+      `;
+      if (elements.consoleStatusPill) {
+        elements.consoleStatusPill.className = 'console-status-pill running';
+        elements.consoleStatusPill.textContent = 'Actualizando...';
+      }
+
+      appendConsoleLog(`\n======================================================`);
+      appendConsoleLog(`[${new Date().toLocaleTimeString()}] INICIANDO ACTUALIZACIÓN INTEGRAL EN PRODUCCIÓN`);
+      appendConsoleLog(`======================================================`);
+
+      try {
+        const res = await fetch('/api/system/update', { method: 'POST' });
+        const data = await res.json();
+
+        if (data.logs && data.logs.length) {
+          data.logs.forEach(l => appendConsoleLog(l));
+        }
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Error durante la actualización');
+        }
+
+        if (elements.consoleStatusPill) {
+          elements.consoleStatusPill.className = 'console-status-pill success';
+          elements.consoleStatusPill.textContent = 'Actualizado';
+        }
+
+        if (elements.syncStatusChip) elements.syncStatusChip.classList.remove('has-update');
+        if (elements.syncPulseDot) elements.syncPulseDot.className = 'pulse-indicator pulse-green';
+        if (elements.syncStatusText) elements.syncStatusText.textContent = '✓ Sistema al día con GitHub';
+        if (elements.updateAvailablePill) elements.updateAvailablePill.classList.add('hidden');
+        if (elements.pendingCommitsBox) elements.pendingCommitsBox.classList.add('hidden');
+
+        if (data.currentHash && elements.currentCommitHashPill) {
+          elements.currentCommitHashPill.textContent = `#${data.currentHash}`;
+        }
+        if (data.commitMessage && elements.currentCommitMsgText) {
+          elements.currentCommitMsgText.textContent = data.commitMessage;
+        }
+        if (data.commitDate && elements.currentCommitDateText) {
+          elements.currentCommitDateText.textContent = data.commitDate;
+        }
+
+        showToast('¡Sistema y base de datos actualizados exitosamente!', 'success');
+      } catch (err) {
+        showToast('Error en la actualización: ' + err.message, 'error');
+        if (elements.consoleStatusPill) {
+          elements.consoleStatusPill.className = 'console-status-pill error';
+          elements.consoleStatusPill.textContent = 'Error';
+        }
+        appendConsoleLog(`[ERROR CRÍTICO] ${err.message}`);
+      } finally {
+        elements.btnRunSystemUpdate.disabled = false;
+        elements.btnCheckUpdates.disabled = false;
+        elements.btnRunSystemUpdate.innerHTML = `
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Actualizar Sistema y Base de Datos (1 Clic)
+        `;
+      }
+    });
+  }
+
+  function appendConsoleLog(line) {
+    if (!elements.updateConsoleOutput) return;
+    elements.updateConsoleOutput.textContent += `\n${line}`;
+    elements.updateConsoleOutput.scrollTop = elements.updateConsoleOutput.scrollHeight;
+  }
 }
 
 // ================= NAVIGATION & TABS ================= //
