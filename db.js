@@ -14,22 +14,74 @@ if (!fs.existsSync(dataDir)) {
 
 const dbPath = path.join(dataDir, 'preview_system.db');
 
-// Universally compatible SQLite: Use native node:sqlite (Node 22+) or better-sqlite3 (Node 20, 18 on cPanel)
+// Multi-environment SQLite Adapter:
+// 1. Try native node:sqlite (Node 22+)
+// 2. Universal WebAssembly SQLite (sql.js) - 100% compatible with Node 18/20 on CloudLinux/cPanel (zero GLIBC or compilation requirements)
 let db;
+
 try {
   const { DatabaseSync } = require('node:sqlite');
   db = new DatabaseSync(dbPath);
   console.log('[DB] Conectado usando SQLite nativo (node:sqlite)');
-} catch (e1) {
-  try {
-    const Database = require('better-sqlite3');
-    db = new Database(dbPath);
-    console.log('[DB] Conectado usando better-sqlite3 (Node 20/18 compatible)');
-  } catch (e2) {
-    const errText = `[DB ERROR CRÍTICO] No se pudo inicializar SQLite:\n- Intento 1 (node:sqlite): ${e1.message}\n- Intento 2 (better-sqlite3): ${e2.message}\nEjecuta "Run NPM Install" en cPanel para instalar better-sqlite3.`;
-    console.error(errText);
-    throw new Error(errText);
+} catch (nativeErr) {
+  console.log('[DB] Inicializando WebAssembly SQLite (sql.js) para compatibilidad universal...');
+  const initSqlJs = (await import('sql.js')).default;
+  const SQL = await initSqlJs();
+  
+  let fileBuffer = fs.existsSync(dbPath) ? fs.readFileSync(dbPath) : null;
+  const sqlDb = fileBuffer ? new SQL.Database(fileBuffer) : new SQL.Database();
+
+  function saveToDisk() {
+    try {
+      const data = sqlDb.export();
+      fs.writeFileSync(dbPath, Buffer.from(data));
+    } catch (e) {
+      console.error('[DB] Error guardando a disco:', e);
+    }
   }
+
+  db = {
+    exec(sql) {
+      sqlDb.exec(sql);
+      saveToDisk();
+    },
+    prepare(sql) {
+      return {
+        get(...params) {
+          const flatParams = (params.length === 1 && Array.isArray(params[0])) ? params[0] : params;
+          const stmt = sqlDb.prepare(sql);
+          if (flatParams.length > 0) stmt.bind(flatParams);
+          let row = undefined;
+          if (stmt.step()) {
+            row = stmt.getAsObject();
+          }
+          stmt.free();
+          return row;
+        },
+        all(...params) {
+          const flatParams = (params.length === 1 && Array.isArray(params[0])) ? params[0] : params;
+          const stmt = sqlDb.prepare(sql);
+          if (flatParams.length > 0) stmt.bind(flatParams);
+          const rows = [];
+          while (stmt.step()) {
+            rows.push(stmt.getAsObject());
+          }
+          stmt.free();
+          return rows;
+        },
+        run(...params) {
+          const flatParams = (params.length === 1 && Array.isArray(params[0])) ? params[0] : params;
+          sqlDb.run(sql, flatParams);
+          const res = sqlDb.exec('SELECT last_insert_rowid() as id, changes() as chg');
+          const lastInsertRowid = res[0]?.values[0][0] || 0;
+          const changes = res[0]?.values[0][1] || 0;
+          saveToDisk();
+          return { lastInsertRowid, changes };
+        }
+      };
+    }
+  };
+  console.log('[DB] Conectado exitosamente con sql.js (WebAssembly) en:', dbPath);
 }
 
 // Enable foreign keys
