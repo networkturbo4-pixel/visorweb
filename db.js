@@ -1,8 +1,9 @@
-import { DatabaseSync } from 'node:sqlite';
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 
+const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -12,7 +13,16 @@ if (!fs.existsSync(dataDir)) {
 }
 
 const dbPath = path.join(dataDir, 'preview_system.db');
-const db = new DatabaseSync(dbPath);
+
+// Universally compatible SQLite: Use native node:sqlite (Node 22+) or better-sqlite3 (Node 20, 18 on cPanel)
+let db;
+try {
+  const { DatabaseSync } = require('node:sqlite');
+  db = new DatabaseSync(dbPath);
+} catch (e) {
+  const Database = require('better-sqlite3');
+  db = new Database(dbPath);
+}
 
 // Enable foreign keys
 db.exec('PRAGMA foreign_keys = ON;');
