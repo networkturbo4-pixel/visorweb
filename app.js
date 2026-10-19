@@ -34,11 +34,9 @@ log(`Node.js Version: ${process.version}`);
 log(`PID: ${process.pid}`);
 log(`Port / Socket: ${process.env.PORT || 'default 3000'}`);
 
-try {
-  await import('./server.js');
-  log('Servidor Express server.js montado correctamente.');
-} catch (err) {
-  log(`ERROR FATAL DURANTE INICIALIZACIÓN: ${err?.stack || err}`);
-  throw err;
-}
+import('./server.js')
+  .then(() => log('Servidor Express server.js montado correctamente.'))
+  .catch((err) => {
+    log(`ERROR FATAL DURANTE INICIALIZACIÓN: ${err?.stack || err}`);
+  });
 
